@@ -3,7 +3,7 @@ These are the notes taken from learn.cantrill.io SAA-03 Course with the combinat
 # 1. SAA-C03 Notes
 and we can even [link](#head1234) to it so:
 
-> These are my personal notes from [Adrian Cantrill's (SAA-C03)](https://learn.cantrill.io.) course with the combination of [alozano-77's notes](https://github.com/alozano-77/AWS-SAA-C02-Course). Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03).  
+> These are my personal notes from [Adrian Cantrill's (SAA-C03)](https://learn.cantrill.io.) course with the combination of [alozano-77's notes](https://github.com/alozano-77/AWS-SAA-C02-Course). Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). Notes will continue to be updated as I go through the course.
 
 **Table of Contents**
 
@@ -23,22 +23,6 @@ and we can even [link](#head1234) to it so:
     - [4 - TRANSPORT](#4---transport)
     - [6 - EXTRA](#6---extra)
 - [1.3. AWS-Fundamentals](#13-aws-fundamentals)
-- [1.3. IAM-Accounts-AWS-Organizations](#13-iam-accounts-aws-organizations)
-- [1.4. Simple-Storage-Service-(S3)](#14-simple-storage-service-s3)
-- [1.5. Virtual-Private-Cloud-VPC](#15-virtual-private-cloud-vpc)
-- [1.6. Elastic-Cloud-Compute-EC2](#16-elastic-cloud-compute-ec2)
-- [1.7. Containers-and-ECS](#17-containers-and-ecs)
-- [1.8. Advanced-EC2](#18-advanced-ec2)
-- [1.9. Route-53](#19-route-53)
-- [1.10. Relational-Database-Service-RDS](#110-relational-database-service-rds)
-- [1.11. Network-Storage-EFS](#111-network-storage-efs)
-- [1.12. HA-and-Scaling](#112-ha-and-scaling)
-- [1.13. Serverless-and-App-Services](#113-serverless-and-app-services)
-- [1.14. CDN-and-Optimization](#114-cdn-and-optimization)
-- [1.15. Advanced-VPC](#115-advanced-vpc)
-- [1.16. Hybrid-and-Migration](#116-hybrid-and-migration)
-- [1.17. Security-Deployment-Operations](#117-security-deployment-operations)
-- [1.18. NoSQL-and-DynamoDB](#118-nosql-and-dynamodb)
 
 ---
 
