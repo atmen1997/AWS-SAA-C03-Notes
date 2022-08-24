@@ -3,7 +3,7 @@ These are the notes taken from learn.cantrill.io SAA-03 Course with the combinat
 # 1. SAA-C03 Notes
 and we can even [link](#head1234) to it so:
 
-> These are my personal notes from Adrian Cantrill's (SAA-C03) course.Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
+> These are my personal notes from [Adrian Cantrill's (SAA-C03)](https://learn.cantrill.io.) course with the combination of [alozano-77's notes](https://github.com/alozano-77/AWS-SAA-C02-Course). Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03).  
 
 **Table of Contents**
 
