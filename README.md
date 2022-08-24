@@ -1,9 +1,6 @@
 # AWS-SAA-03-Notes
-These are the notes taken from learn.cantrill.io SAA-03 Course with the combination of notes from alozano-77
-# 1. SAA-C03 Notes
-and we can even [link](#head1234) to it so:
 
-> These are my personal notes from [Adrian Cantrill's (SAA-C03)](https://learn.cantrill.io.) course with the combination of [alozano-77's notes](https://github.com/alozano-77/AWS-SAA-C02-Course). Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). Notes will continue to be updated as I go through the course.
+> These are notes taken from [Adrian Cantrill's (SAA-C03)]([https://learn.cantrill.io.](https://learn.cantrill.io/p/aws-certified-solutions-architect-associate-saa-c03)) course with the combination of [alozano-77's notes](https://github.com/alozano-77/AWS-SAA-C02-Course). Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). Notes will continue to be updated as I go through the course. Also please support [Adrian Cantrill's](https://learn.cantrill.io.) if you find this useful.
 
 **Table of Contents**
 
