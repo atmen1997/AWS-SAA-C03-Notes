@@ -67,7 +67,7 @@ that make up the total service. There are parts that **you** manage as well
 as portions the **vendor** manages. The portions the vendor manages and you
 are charged for is the **unit of consumption**
 
-![](@attachment/Clipboard_2022-08-20-22-35-47.png)
+![Stacks](../attachments/Clipboard_2022-08-20-22-35-47.png)
 
 1. On-Premises: 
     * The individual manages all components from data to facilities.
