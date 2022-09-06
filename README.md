@@ -1,7 +1,5 @@
 # 1. SAA-C03 Notes
-and we can even [link](#head1234) to it so:
-
-> These are my personal notes from Adrian Cantrill's (SAA-C03) course.Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
+> These are my personal notes from Adrian Cantrill's (SAA-C03) course. Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
 
 **Table of Contents**
 
