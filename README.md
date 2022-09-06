@@ -93,7 +93,7 @@ There are additional services such as *Function as a Service*, *Container as a S
 
 ## 1.2. Tech Fundamentals
 ### 1.2.1. YAML101 - YAML AINT MARKUP LANGUAGE
-![](@attachment/Clipboard_2022-08-20-22-49-10.png)
+![](../main/attachments/Clipboard_2022-08-20-22-49-10.png)
 * YAML = Human readable data serialization language
 * Uses key value pair (key: value)
 * Suports numbers (1 or 2...), floating point (1.234), boolean (true or false), and null value
@@ -111,12 +111,12 @@ adrianscats:
 ```
 * Same indentation = same list. You can nest lists in lists using indentation.
 
-![](@attachment/Clipboard_2022-08-20-22-55-20.png)
-![](@attachment/Clipboard_2022-08-20-22-59-14.png)
+![](../main/attachments/Clipboard_2022-08-20-22-55-20.png)
+![](../main/attachments/Clipboard_2022-08-20-22-59-14.png)
 * YAML is commonly used for configuration and in CloudFormation within AWS
 
 ### 1.2.2. JSON101 - JavaScript Object Notation
-![](@attachment/Clipboard_2022-08-20-23-03-30.png)
+![](../main/attachments/Clipboard_2022-08-20-23-03-30.png)
 * Also uses attribute value pairs and array data types
 * Indentation is not necessary
 
@@ -142,7 +142,7 @@ adrianscats:
 }
 ```
 ### 1.2.3. Encryption 101
-![](@attachment/Clipboard_2022-08-20-23-17-35.png)
+![](../main/attachments/Clipboard_2022-08-20-23-17-35.png)
 * Encryption At Rest
   * Data on your laptap uses a password to encrypt your data
 * Encryption in Transit
@@ -155,12 +155,12 @@ adrianscats:
 4. Ciphertext
 
 #### **Symmetric Encryption**
-![](@attachment/Clipboard_2022-08-20-23-30-18.png)
+![](../main/attachments/Clipboard_2022-08-20-23-30-18.png)
 * Great for local encryption on laptop 
 * Bad since it can't deliver encryption key safely to the other party (remote party)
 
 #### **Asymmetric Encryption**
-![](@attachment/Clipboard_2022-08-20-23-35-59.png)
+![](../main/attachments/Clipboard_2022-08-20-23-35-59.png)
 * Plubic and Private key pairs are created at the same time
 * Public key is use to encrypt data
 * Private key is use to decrypt data 
@@ -172,7 +172,7 @@ adrianscats:
 * Use private key to sign the Ciphertext 
 * Public key are use to verify the private sign is legit
 
-![](@attachment/Clipboard_2022-08-21-09-30-22.png)
+![](../main/attachments/Clipboard_2022-08-21-09-30-22.png)
 #### **Steganography**
 * People know that you are the one who encrypted the data
 * The method of hiding something within something else
@@ -180,7 +180,7 @@ adrianscats:
 
 ### 1.2.4. Network Starter Pack 
 #### 0 - INTRO
-![](@attachment/Clipboard_2022-08-21-09-46-16.png)
+![](../main/attachments/Clipboard_2022-08-21-09-46-16.png)
 OSI 7-Layer Model
 * Media Layers: 
     * How data is move between point A and point B.
@@ -189,14 +189,14 @@ OSI 7-Layer Model
     * How data is formatted so both side of a network can understand.
 #### 1 - PHYSICAL
 1-1 Device communication
-![](@attachment/Clipboard_2022-08-21-09-51-56.png)
+![](../main/attachments/Clipboard_2022-08-21-09-51-56.png)
 * Transfer data via voltage changing (1s and 0s) on **physical shared medium** (ex:copper[electricity], fibre[light], wifi[radio])
 * Has standards for transmitting onto the medium
 * Has standards for receiving from the medium
 * The 1s and 0s has predefined things **(standard specification)** such as Voltage levels, timing, rates, distances,modulation and connectors
 
 Layer 1 device HUB multiple device communication
-![](@attachment/Clipboard_2022-08-21-09-57-01.png)
+![](../main/attachments/Clipboard_2022-08-21-09-57-01.png)
 * Anything received on any port, transmitted on every other port
     * Cause collision
     * No device to device communications
@@ -204,18 +204,18 @@ Layer 1 device HUB multiple device communication
 * No uniquely identified devices
 
 #### 2 - DATA LINK
-![](@attachment/Clipboard_2022-08-21-10-16-55.png)
+![](../main/attachments/Clipboard_2022-08-21-10-16-55.png)
 * Preamble: Know when a frame starts
 * ET: Which layer 3 prototal is being use (ex: IP address protocal)
 * Payload: Contains the data
 * FCS: Allow destination to check if corruption has occured
 
-![](@attachment/Clipboard_2022-08-21-10-52-28.png)
+![](../main/attachments/Clipboard_2022-08-21-10-52-28.png)
 * Carrier sense multiple access (CSMA): Allows Layer 2 to check carrier signal on the Layer 1 allowing <span style="color:red">***Media access control***</span>
 * Collision detection: if detection does occur and detected (both transmitted at once) then both backoff for a random time 
 
 Layer 2 device **"Switch"** for multiple device communication
-![](@attachment/Clipboard_2022-08-21-11-02-10.png)
+![](../main/attachments/Clipboard_2022-08-21-11-02-10.png)
 * A switch has a mac address table which stores Mac address to the corresponding port
 * Table starts out empty but learns which port is connected through which device
 * Switches **STORE** and **FORWARD** so only valid frame are forwarded and collisions are isolated on the port they occurred
@@ -241,20 +241,20 @@ Converting 133 to binary
 3. If **EQUAL** or **LARGER** - Subtract the binary position value with the decimal number and write 1
 4. Move to next position with the new decimal value after subtracting and repeat from step 2
 
-![](@attachment/Clipboard_2022-08-21-11-28-22.png)
+![](../main/attachments/Clipboard_2022-08-21-11-28-22.png)
 Binary => Deciaml 
 * Start from left to right
 * Compare the Binary value with Binary position value. If **Birary value** = 1 then add that Binary position value
 
 #### 3 - Network
 ##### L2 => L3 - Building a Common L33 Network
-![](@attachment/Clipboard_2022-08-21-11-35-38.png)
+![](../main/attachments/Clipboard_2022-08-21-11-35-38.png)
 * Not everything uses the same layer 2 protocal. Need to use the same protocal to communicate.
 * L2 Ethernet protocal generally  use for local network. Long distance use different protocal (ex: PPP/MPLS/ATM)
 * L3 has Internet protocal (IP) which adds cross network IP address and routing to move data between **Local Area Networks** without point to point links
 * Routers (L3) devices, remove frame encapsulation and add new ones at each hop
 
-![](@attachment/Clipboard_2022-08-21-11-46-56.png)
+![](../main/attachments/Clipboard_2022-08-21-11-46-56.png)
 * <Span style= "color:pink"> Protocal</span>: Stores L4 protocol data
     * TCP: value = 6
     * ICMP or ping: value = 1
@@ -262,27 +262,27 @@ Binary => Deciaml
 * <Span style= "color:orange"> Time To Live</span>: Tells how many hop it could take 
 
 ##### IP Addressing (v4) - IPv4
-![](@attachment/Clipboard_2022-08-21-12-01-33.png)
+![](../main/attachments/Clipboard_2022-08-21-12-01-33.png)
 * Has 2 part
     * Network part: helps know if you are on the same local network or remote
     * Host part
 ##### Subnet Mask
-![](@attachment/Clipboard_2022-08-21-12-06-22.png)
+![](../main/attachments/Clipboard_2022-08-21-12-06-22.png)
 * Allow devices to know if they need to communicate on local network or remote
 * Works by over-laying the host IP Address and the subnet mask (255.255.0.0)
 ##### L3 - Route Tables & Routes
-![](@attachment/Clipboard_2022-08-21-12-14-13.png)
+![](../main/attachments/Clipboard_2022-08-21-12-14-13.png)
 * Routers stores Desination and Next Hop. 
     * Route table are populated  Statically or 
     * Route table are populated thanks to Boreder Gateway Protocal which allows routers to communicate with each other
 * Routers uses the Destination IP within a Packet to compare with destination in route table. The higher the prefix the better
 
 ##### Address Resolution Protocal (ARP)
-![](@attachment/Clipboard_2022-08-21-12-25-01.png)
+![](../main/attachments/Clipboard_2022-08-21-12-25-01.png)
 * Dont know the initial destination mac address. ARP solve this
 * ARP give the IP Address for the given Mac Address
 ##### Layer 3 - IP Routing
-![](@attachment/Clipboard_2022-08-21-12-37-53.png)
+![](../main/attachments/Clipboard_2022-08-21-12-37-53.png)
 
 **LAYER 3 - NETWORK SUMMARY**
 * IP Addresses (IPv4/v6) - cross network addressing
@@ -295,7 +295,7 @@ Binary => Deciaml
 * Can be delivered out of order... (Solve in layer 4)
 
 #### 4 - TRANSPORT
-![](@attachment/Clipboard_2022-08-21-17-10-39.png)
+![](../main/attachments/Clipboard_2022-08-21-17-10-39.png)
 ##### Layer 3 - problems
 1. Each Packet is routed independently => <span style="color:red">***out of order arrival***</span> (L3 provide no ordering mechanism)
 2. <span style="color:red">***Packet can go missing***</span>  due to lost of connection or time to live exceed
@@ -303,13 +303,13 @@ Binary => Deciaml
 4.  Email/App/Watch video. <span style="color:red">***No communication channels.***</span> Can't differentiate packet between different channels
 5. <span style="color:red">***No flow control***</span>. If source transmit is faster than destination can receive then cause packet loss 
 ##### TCP and UDP
-![](@attachment/Clipboard_2022-08-21-17-18-41.png)
+![](../main/attachments/Clipboard_2022-08-21-17-18-41.png)
 TCP: 
 * Slower/Reliable
 UDP:
 * Fast/Less Reliable
 ##### TCP Segments
-![](@attachment/Clipboard_2022-08-21-17-34-16.png)
+![](../main/attachments/Clipboard_2022-08-21-17-34-16.png)
 1. Source Port **(Solve no communication channel)**
 2. Destination Port **(Solve no communication channel)**
     * SRC Port + DES Port + SRC IP + DES IP combine to create a unquie value to identify a single conversation (a single communication channel) => Why SSH and HTTPS can exist on the same EC2 instance
@@ -321,12 +321,12 @@ UDP:
 7. Checksum: Error checker and arrage retransmission of data 
 8. Urgent pointer: help control traffic part to always takes priority within the communication 
 ##### Transmission Control Protocol (TCP)
-![](@attachment/Clipboard_2022-08-21-17-39-55.png)
+![](../main/attachments/Clipboard_2022-08-21-17-39-55.png)
 * EPHEMERAL PORT (some high number TCP/23060)
 * WELL KNOWN PORT (TCP/443)
 
 Flag 'N' Things field
-![](@attachment/Clipboard_2022-08-21-17-55-46.png)
+![](../main/attachments/Clipboard_2022-08-21-17-55-46.png)
 * URG: Urgent pointer is valid
 * ACK: Acknowledgement is valid
 * PSH: Request for push
@@ -335,22 +335,22 @@ Flag 'N' Things field
 * FIN: Terminate the connection
 
 1. Connection establishment phase 
-![](@attachment/Clipboard_2022-08-21-17-56-41.png)
+![](../main/attachments/Clipboard_2022-08-21-17-56-41.png)
     * HOST send a packet with SYN FLAG and Sequence number
     * Client ACK the SYN and send back a packet with its own Squence number as well as the ACK number and the Window number
     * HOST ACK the packet sent by sending another packet back with the ACK number of the client incremented by 1 as well as the new sequence number and its Window number
 2. Data transfer phase
-![](@attachment/Clipboard_2022-08-21-17-58-10.png)
+![](../main/attachments/Clipboard_2022-08-21-17-58-10.png)
 * Host start sending data to client with PSH FLAG and ACK FLAG 
 * Client received the packet and send back a packet of ACK, the updated window size (Not yet computed by client), the new seq num and the new ack num
 * Host send back an ACK saying that it has receive packet succesfully and also proceed the data so the window size is still the same.
 3. Connection termination phase (full close)
-![](@attachment/Clipboard_2022-08-21-17-59-05.png)
+![](../main/attachments/Clipboard_2022-08-21-17-59-05.png)
 4. Connection termination phase (half close)
-![](@attachment/Clipboard_2022-08-21-18-00-15.png)
+![](../main/attachments/Clipboard_2022-08-21-18-00-15.png)
 
 ##### Sessions & State
-![](@attachment/Clipboard_2022-08-21-18-25-00.png)
+![](../main/attachments/Clipboard_2022-08-21-18-25-00.png)
 Stateless firewall: Does not understand the state of a connection (Network ACL)
 * Would need 2 rule for it to work.
     * Outbound rule (host transfering data to client)
@@ -367,14 +367,14 @@ NAT Device is use to do the following:
 * Translate IPv4 address to Public
 * Type of NAT:
     * Static NAT - 1 private to 1 (fixed) public address (IGW)
-    ![](@attachment/Clipboard_2022-08-21-18-36-01.png)
+    ![](../main/attachments/Clipboard_2022-08-21-18-36-01.png)
     * Dynamic NAT - 1 private to 1st available public adress
-    ![](@attachment/Clipboard_2022-08-23-22-47-38.png)
+    ![](../main/attachments/Clipboard_2022-08-23-22-47-38.png)
     * Port Address Translation (PAT) - many private to 1 public (NATGW)
-    ![](@attachment/Clipboard_2022-08-23-22-49-50.png)
+    ![](../main/attachments/Clipboard_2022-08-23-22-49-50.png)
 * IPv4 only since IPv6 has no shortage
 #### EXTRA - Subnetting
-![](@attachment/Clipboard_2022-08-23-22-58-45.png)
+![](../main/attachments/Clipboard_2022-08-23-22-58-45.png)
 * Dividing IP into smaller chucks
 * Total 4,294,967,296 IPv4 Address
 * Class A IP: Start 0.0.0.0 - End 127.255.255.255
@@ -392,12 +392,12 @@ NAT Device is use to do the following:
 ##### IP Subnetting
 * The larger the prefix the samller the network
 
-![](@attachment/Clipboard_2022-08-23-23-10-46.png)
-![](@attachment/Clipboard_2022-08-23-23-11-24.png)
+![](../main/attachments/Clipboard_2022-08-23-23-10-46.png)
+![](../main/attachments/Clipboard_2022-08-23-23-11-24.png)
 
 ##### SSL and TLS
 
-![](@attachment/Clipboard_2022-08-23-23-22-34.png)
+![](../main/attachments/Clipboard_2022-08-23-23-22-34.png)
 
 ##### Hash Functions & Hashing
 * Data + Hash function = hash
@@ -408,7 +408,7 @@ NAT Device is use to do the following:
 * Check by downloading the data and if the hash match then data is unaltered
 
 ##### Digital Signatures
-![](@attachment/Clipboard_2022-08-23-23-43-03.png)
+![](../main/attachments/Clipboard_2022-08-23-23-43-03.png)
 * Verifies <span style="color:purple">INTEGRITY(WHAT)</span> & <span style="color:orange">AUTHENTICITY(WHO)</span> 
 * <span style="color:purple">HASH</span> of the data is taken, original data remains unaltered <span style="color:purple">(INTEGRITY)</span>
 * <span style="color:orange">Digital sign</span> the <span style="color:purple">HASH</span> (using private key). <span style="color:orange">Authenticates</span> the hash.
@@ -969,7 +969,7 @@ Identity Policies are attached to AWS Identities which are:
 * IAM groups
 * IAM roles 
  
-![](@attachment/Clipboard_2022-08-25-22-46-55.png)
+![](../main/attachments/Clipboard_2022-08-25-22-46-55.png)
 These are **a set of security statements** that ALLOW or DENY access to AWS resources.
 
 When an identity attempts to access AWS resources, that identity needs to prove who it is to AWS, using a process known as **Authentication**.
@@ -989,13 +989,13 @@ Once authenticated, that identity is known as an **authenticated identity**
 - Resource: similar to action except for format `arn:aws:s3:::catgifs`
 
 #### 1.4.1.2. Priority Level
-![](@attachment/Clipboard_2022-08-25-22-58-25.png)
+![](../main/attachments/Clipboard_2022-08-25-22-58-25.png)
 - Explicit Deny: Denies access to a particular resource cannot be overruled.
 - Explicit Allow: Allows access so long there is not an explicit deny.
 - Default Deny (Implicit): IAM identities start off with no resource access.
 
 #### 1.4.1.3. Inline Policies and Managed Policies
-![](@attachment/Clipboard_2022-08-25-23-05-13.png)
+![](../main/attachments/Clipboard_2022-08-25-23-05-13.png)
 - Take in all statement and evaluates all at the same time
 - Inline Policy: grants access and assigned on each accounts individually. (Use for exceptions)
 - Managed Policy (best practice): one policy is applied to all users at once.
@@ -1012,7 +1012,7 @@ Identity used for anything requiring **long-term** AWS access
 
 If you can name a thing to use the AWS account, this is an IAM user.
 
-![](@attachment/Clipboard_2022-08-25-23-19-43.png)
+![](../main/attachments/Clipboard_2022-08-25-23-19-43.png)
 
 When a **principal** wants to **request** to perform an action, it will **authenticate** against an identity within IAM. An IAM user is an
 identity which can be used in this way.
@@ -1067,7 +1067,7 @@ These two ARNs do not overlap
 * They have no credentials of their own. 
 * Used solely for management of IAM users.
 
-![](@attachment/Clipboard_2022-08-28-18-29-03.png)
+![](../main/attachments/Clipboard_2022-08-28-18-29-03.png)
 Groups bring two benefits
 
 1. Effective administrative style management of users based on the team
@@ -1109,7 +1109,7 @@ IAM Users can have inline or managed policies which control which permissions th
 
 Permission policy: Policies which grant, allow or deny, permissions based on their associations.
 
-![](@attachment/Clipboard_2022-08-28-19-23-13.png)
+![](../main/attachments/Clipboard_2022-08-28-19-23-13.png)
 IAM Roles have two types of policies can be attached.
 
 - Trust Policy: Specifies which identities are allowed to assume the role.
@@ -1125,7 +1125,7 @@ Secure Token Service (sts:AssumeRole) this is what generates the temporary secur
 
 ### 1.4.5. When to use IAM Roles
 
-![](@attachment/Clipboard_2022-08-28-19-36-53.png)
+![](../main/attachments/Clipboard_2022-08-28-19-36-53.png)
 Lambda Execution Role.
 For a given lambda function, you cannot determine the number of principals which suggested a Role might be the ideal identity to use.
 
@@ -1137,7 +1137,7 @@ When this is run, it uses the sts:AssumeRole to generate keys to CloudWatch and 
 It is better when possible to use an IAM Role versus attaching a policy.
 
 #### 1.4.5.1. Emergency or out of the usual situations
-![](@attachment/Clipboard_2022-08-28-19-40-36.png)
+![](../main/attachments/Clipboard_2022-08-28-19-40-36.png)
 Break Glass Situation - There is a key for something the team does not normally have access to. When you break the glass, you must have a reason
 to do.
 A role can have an Emergency Role which will allow further access if its really needed.
@@ -1153,7 +1153,7 @@ by one of the active directories.
 **ID Federation** allowing an external service the ability to assume a role.
 
 #### 1.4.5.3. Making an app with 1,000,000 users
-![](@attachment/Clipboard_2022-08-28-19-46-51.png)
+![](../main/attachments/Clipboard_2022-08-28-19-46-51.png)
 **Web Identity Federation** uses IAM roles to allow broader access.
 These allow you to use an existing web identity such as google, facebook, or twitter to grant access to the app.
 We can trust these web identities and allow those identities to assume an IAM role to access web resources such as DynamoDB.
@@ -1161,7 +1161,7 @@ No AWS Credentials are stored on the application.
 Can scale quickly and beyond.
 
 #### 1.4.5.4. Cross Account Access
-![](@attachment/Clipboard_2022-08-28-19-50-25.png)
+![](../main/attachments/Clipboard_2022-08-28-19-50-25.png)
 You can use a role in the partner account and use that to upload objects to AWS resources.
 
 Service-linked roles 
@@ -1185,18 +1185,18 @@ When standard AWS accounts become part of the org, they become **member accounts
 Organizations can only have one **master accounts** and zero or more **member accounts**
 
 #### 1.4.6.1. Organization Root
-![](@attachment/Clipboard_2022-08-29-23-47-42.png)
+![](../main/attachments/Clipboard_2022-08-29-23-47-42.png)
 This is a container that can hold AWS member accounts or the master account.
 It could also contain **organizational units** which can contain other units or member accounts.
 
 #### 1.4.6.2. Consolidated billing
-![](@attachment/Clipboard_2022-08-29-23-51-30.png)
+![](../main/attachments/Clipboard_2022-08-29-23-51-30.png)
 The individual billing for the member accounts is removed and they pass their billing to the master account.
 Inside an AWS organization, you get a single monthly bill for the master account which covers all the billing for each users.
 Can offer a discount with consolidation of reservations and volume discounts
 
 #### 1.4.6.3. Create new accounts in an org
-![](@attachment/Clipboard_2022-08-29-23-57-25.png)
+![](../main/attachments/Clipboard_2022-08-29-23-57-25.png)
 Adding accounts in an organization is easy with only an email needed.
 
 No need for IAM Users within every single AWS account.
@@ -1214,7 +1214,7 @@ Allows you to switch between accounts from the command line
 Can be used to restrict what member accounts in an org can do.
 
 JSON policy document that can be attached:
-![](@attachment/Clipboard_2022-08-30-23-41-24.png)
+![](../main/attachments/Clipboard_2022-08-30-23-41-24.png)
 - To the org as a whole by attaching to the root container.
 - A specific Organizational Unit
 - A specific member only.
@@ -1294,7 +1294,7 @@ Security is provided with IAM roles or Service roles.
 Can generate metrics based on logs **metric filter**
 
 #### 1.4.8.1. Architecture of CloudWatch Logs
-![](@attachment/Clipboard_2022-09-01-12-15-58.png)
+![](../main/attachments/Clipboard_2022-09-01-12-15-58.png)
 * It is a regional service `us-east-1`
 * Need logging sources such as external APIs or databases. 
 * This sends information as **log events**. 
@@ -1374,7 +1374,7 @@ CloudTrail products can create an organizational trail. This allows a single man
 * Dashboard - single page oversight of the entire environment
 
 #### 1.4.10.1. Control Tower Structure
-![](@attachment/Clipboard_2022-09-02-17-30-31.png)
+![](../main/attachments/Clipboard_2022-09-02-17-30-31.png)
 * Management account contain:
   * Control Tower
   * SSO (IAM Identity Center)
