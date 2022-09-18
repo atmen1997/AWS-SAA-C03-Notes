@@ -1,4 +1,5 @@
 # 1. SAA-C03 Notes
+
 > These are my personal notes from Adrian Cantrill's (SAA-C03) course. Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac03). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
 
 **Table of Contents**
@@ -45,7 +46,21 @@
   - [1.4.9. CloudTrail Essentials](#149-cloudtrail-essentials)
   - [1.4.10. AWS Control Tower](#1410-aws-control-tower)
 - [1.5. Simple-Storage-Service-(S3)](#15-simple-storage-service-s3)
-
+  - [1.5.1. S3 Security](#151-s3-security)
+  - [1.5.2. S3 Static Hosting](#152-s3-static-hosting)
+  - [1.5.3. Object Versioning and MFA Delete](#153-object-versioning-and-mfa-delete)
+  - [1.5.4. S3 Performance Optimization](#154-s3-performance-optimization)
+  - [1.5.5. Key Management Service (KMS)](#155-key-management-service-kms)
+  - [1.5.6. KMS Key Demo](#156-kms-key-demo)
+  - [1.5.7. Object Encryption](#157-object-encryption)
+  - [1.5.8. S3 Object Storage Classes](#158-s3-object-storage-classes)
+  - [1.5.9. S3 Lifecycle Configuration](#159-s3-lifecycle-configuration)
+  - [1.5.10. S3 Replication](#1510-s3-replication)
+  - [1.5.11. S3 Presigned URL](#1511-s3-presigned-url)
+  - [1.5.12. S3 Select and Glacier Select](#1512-s3-select-and-glacier-select)
+  - [1.5.13. S3 Event Notifications](#1513-s3-event-notifications)
+  - [1.5.14. S3 Access Logs](#1514-s3-access-logs)
+  - [1.5.15. S3 Object Lock](#1515-s3-object-lock)
 ---
 
 ## 1.1. Cloud Computing Fundamentals
@@ -75,7 +90,7 @@ that make up the total service. There are parts that **you** manage as well
 as portions the **vendor** manages. The portions the vendor manages and you
 are charged for is the **unit of consumption**
 
-![Stacks](../main/attachments/Clipboard_2022-08-20-22-35-47.png?raw=true "Optional Title")
+![](../attachments/Clipboard_2022-08-20-22-35-47.png?raw=true "Optional Title")
 
 1. On-Premises: 
     * The individual manages all components from data to facilities.
@@ -101,7 +116,7 @@ There are additional services such as *Function as a Service*, *Container as a S
 
 ## 1.2. Tech Fundamentals
 ### 1.2.1. YAML101 - YAML AINT MARKUP LANGUAGE
-![](../main/attachments/Clipboard_2022-08-20-22-49-10.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-22-49-10.png?raw=true "Optional Title")
 * YAML = Human readable data serialization language
 * Uses key value pair (key: value)
 * Suports numbers (1 or 2...), floating point (1.234), boolean (true or false), and null value
@@ -119,12 +134,12 @@ adrianscats:
 ```
 * Same indentation = same list. You can nest lists in lists using indentation.
 
-![](../main/attachments/Clipboard_2022-08-20-22-55-20.png)
-![](../main/attachments/Clipboard_2022-08-20-22-59-14.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-22-55-20.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-08-20-22-59-14.png?raw=true "Optional Title")
 * YAML is commonly used for configuration and in CloudFormation within AWS
 
 ### 1.2.2. JSON101 - JavaScript Object Notation
-![](../main/attachments/Clipboard_2022-08-20-23-03-30.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-23-03-30.png?raw=true "Optional Title")
 * Also uses attribute value pairs and array data types
 * Indentation is not necessary
 
@@ -150,7 +165,7 @@ adrianscats:
 }
 ```
 ### 1.2.3. Encryption 101
-![](../main/attachments/Clipboard_2022-08-20-23-17-35.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-23-17-35.png?raw=true "Optional Title")
 * Encryption At Rest
   * Data on your laptap uses a password to encrypt your data
 * Encryption in Transit
@@ -163,12 +178,12 @@ adrianscats:
 4. Ciphertext
 
 #### **Symmetric Encryption**
-![](../main/attachments/Clipboard_2022-08-20-23-30-18.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-23-30-18.png?raw=true "Optional Title")
 * Great for local encryption on laptop 
 * Bad since it can't deliver encryption key safely to the other party (remote party)
 
 #### **Asymmetric Encryption**
-![](../main/attachments/Clipboard_2022-08-20-23-35-59.png)
+![Stacks](../main/attachments/Clipboard_2022-08-20-23-35-59.png?raw=true "Optional Title")
 * Plubic and Private key pairs are created at the same time
 * Public key is use to encrypt data
 * Private key is use to decrypt data 
@@ -180,7 +195,7 @@ adrianscats:
 * Use private key to sign the Ciphertext 
 * Public key are use to verify the private sign is legit
 
-![](../main/attachments/Clipboard_2022-08-21-09-30-22.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-09-30-22.png?raw=true "Optional Title")
 #### **Steganography**
 * People know that you are the one who encrypted the data
 * The method of hiding something within something else
@@ -188,7 +203,7 @@ adrianscats:
 
 ### 1.2.4. Network Starter Pack 
 #### 0 - INTRO
-![](../main/attachments/Clipboard_2022-08-21-09-46-16.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-09-46-16.png?raw=true "Optional Title")
 OSI 7-Layer Model
 * Media Layers: 
     * How data is move between point A and point B.
@@ -197,14 +212,14 @@ OSI 7-Layer Model
     * How data is formatted so both side of a network can understand.
 #### 1 - PHYSICAL
 1-1 Device communication
-![](../main/attachments/Clipboard_2022-08-21-09-51-56.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-09-51-56.png?raw=true "Optional Title")
 * Transfer data via voltage changing (1s and 0s) on **physical shared medium** (ex:copper[electricity], fibre[light], wifi[radio])
 * Has standards for transmitting onto the medium
 * Has standards for receiving from the medium
 * The 1s and 0s has predefined things **(standard specification)** such as Voltage levels, timing, rates, distances,modulation and connectors
 
 Layer 1 device HUB multiple device communication
-![](../main/attachments/Clipboard_2022-08-21-09-57-01.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-09-57-01.png?raw=true "Optional Title")
 * Anything received on any port, transmitted on every other port
     * Cause collision
     * No device to device communications
@@ -212,18 +227,18 @@ Layer 1 device HUB multiple device communication
 * No uniquely identified devices
 
 #### 2 - DATA LINK
-![](../main/attachments/Clipboard_2022-08-21-10-16-55.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-10-16-55.png?raw=true "Optional Title")
 * Preamble: Know when a frame starts
 * ET: Which layer 3 prototal is being use (ex: IP address protocal)
 * Payload: Contains the data
 * FCS: Allow destination to check if corruption has occured
 
-![](../main/attachments/Clipboard_2022-08-21-10-52-28.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-10-52-28.png?raw=true "Optional Title")
 * Carrier sense multiple access (CSMA): Allows Layer 2 to check carrier signal on the Layer 1 allowing <span style="color:red">***Media access control***</span>
 * Collision detection: if detection does occur and detected (both transmitted at once) then both backoff for a random time 
 
 Layer 2 device **"Switch"** for multiple device communication
-![](../main/attachments/Clipboard_2022-08-21-11-02-10.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-11-02-10.png?raw=true "Optional Title")
 * A switch has a mac address table which stores Mac address to the corresponding port
 * Table starts out empty but learns which port is connected through which device
 * Switches **STORE** and **FORWARD** so only valid frame are forwarded and collisions are isolated on the port they occurred
@@ -249,20 +264,20 @@ Converting 133 to binary
 3. If **EQUAL** or **LARGER** - Subtract the binary position value with the decimal number and write 1
 4. Move to next position with the new decimal value after subtracting and repeat from step 2
 
-![](../main/attachments/Clipboard_2022-08-21-11-28-22.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-11-28-22.png?raw=true "Optional Title")
 Binary => Deciaml 
 * Start from left to right
 * Compare the Binary value with Binary position value. If **Birary value** = 1 then add that Binary position value
 
 #### 3 - Network
 ##### L2 => L3 - Building a Common L33 Network
-![](../main/attachments/Clipboard_2022-08-21-11-35-38.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-11-35-38.png?raw=true "Optional Title")
 * Not everything uses the same layer 2 protocal. Need to use the same protocal to communicate.
 * L2 Ethernet protocal generally  use for local network. Long distance use different protocal (ex: PPP/MPLS/ATM)
 * L3 has Internet protocal (IP) which adds cross network IP address and routing to move data between **Local Area Networks** without point to point links
 * Routers (L3) devices, remove frame encapsulation and add new ones at each hop
 
-![](../main/attachments/Clipboard_2022-08-21-11-46-56.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-11-46-56.png?raw=true "Optional Title")
 * <Span style= "color:pink"> Protocal</span>: Stores L4 protocol data
     * TCP: value = 6
     * ICMP or ping: value = 1
@@ -270,27 +285,27 @@ Binary => Deciaml
 * <Span style= "color:orange"> Time To Live</span>: Tells how many hop it could take 
 
 ##### IP Addressing (v4) - IPv4
-![](../main/attachments/Clipboard_2022-08-21-12-01-33.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-12-01-33.png?raw=true "Optional Title")
 * Has 2 part
     * Network part: helps know if you are on the same local network or remote
     * Host part
 ##### Subnet Mask
-![](../main/attachments/Clipboard_2022-08-21-12-06-22.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-12-06-22.png?raw=true "Optional Title")
 * Allow devices to know if they need to communicate on local network or remote
 * Works by over-laying the host IP Address and the subnet mask (255.255.0.0)
 ##### L3 - Route Tables & Routes
-![](../main/attachments/Clipboard_2022-08-21-12-14-13.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-12-14-13.png?raw=true "Optional Title")
 * Routers stores Desination and Next Hop. 
     * Route table are populated  Statically or 
     * Route table are populated thanks to Boreder Gateway Protocal which allows routers to communicate with each other
 * Routers uses the Destination IP within a Packet to compare with destination in route table. The higher the prefix the better
 
 ##### Address Resolution Protocal (ARP)
-![](../main/attachments/Clipboard_2022-08-21-12-25-01.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-12-25-01.png?raw=true "Optional Title")
 * Dont know the initial destination mac address. ARP solve this
 * ARP give the IP Address for the given Mac Address
 ##### Layer 3 - IP Routing
-![](../main/attachments/Clipboard_2022-08-21-12-37-53.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-12-37-53.png?raw=true "Optional Title")
 
 **LAYER 3 - NETWORK SUMMARY**
 * IP Addresses (IPv4/v6) - cross network addressing
@@ -303,7 +318,7 @@ Binary => Deciaml
 * Can be delivered out of order... (Solve in layer 4)
 
 #### 4 - TRANSPORT
-![](../main/attachments/Clipboard_2022-08-21-17-10-39.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-10-39.png?raw=true "Optional Title")
 ##### Layer 3 - problems
 1. Each Packet is routed independently => <span style="color:red">***out of order arrival***</span> (L3 provide no ordering mechanism)
 2. <span style="color:red">***Packet can go missing***</span>  due to lost of connection or time to live exceed
@@ -311,13 +326,13 @@ Binary => Deciaml
 4.  Email/App/Watch video. <span style="color:red">***No communication channels.***</span> Can't differentiate packet between different channels
 5. <span style="color:red">***No flow control***</span>. If source transmit is faster than destination can receive then cause packet loss 
 ##### TCP and UDP
-![](../main/attachments/Clipboard_2022-08-21-17-18-41.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-18-41.png?raw=true "Optional Title")
 TCP: 
 * Slower/Reliable
 UDP:
 * Fast/Less Reliable
 ##### TCP Segments
-![](../main/attachments/Clipboard_2022-08-21-17-34-16.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-34-16.png?raw=true "Optional Title")
 1. Source Port **(Solve no communication channel)**
 2. Destination Port **(Solve no communication channel)**
     * SRC Port + DES Port + SRC IP + DES IP combine to create a unquie value to identify a single conversation (a single communication channel) => Why SSH and HTTPS can exist on the same EC2 instance
@@ -329,12 +344,12 @@ UDP:
 7. Checksum: Error checker and arrage retransmission of data 
 8. Urgent pointer: help control traffic part to always takes priority within the communication 
 ##### Transmission Control Protocol (TCP)
-![](../main/attachments/Clipboard_2022-08-21-17-39-55.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-39-55.png?raw=true "Optional Title")
 * EPHEMERAL PORT (some high number TCP/23060)
 * WELL KNOWN PORT (TCP/443)
 
 Flag 'N' Things field
-![](../main/attachments/Clipboard_2022-08-21-17-55-46.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-55-46.png?raw=true "Optional Title")
 * URG: Urgent pointer is valid
 * ACK: Acknowledgement is valid
 * PSH: Request for push
@@ -343,22 +358,22 @@ Flag 'N' Things field
 * FIN: Terminate the connection
 
 1. Connection establishment phase 
-![](../main/attachments/Clipboard_2022-08-21-17-56-41.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-56-41.png?raw=true "Optional Title")
     * HOST send a packet with SYN FLAG and Sequence number
     * Client ACK the SYN and send back a packet with its own Squence number as well as the ACK number and the Window number
     * HOST ACK the packet sent by sending another packet back with the ACK number of the client incremented by 1 as well as the new sequence number and its Window number
 2. Data transfer phase
-![](../main/attachments/Clipboard_2022-08-21-17-58-10.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-58-10.png?raw=true "Optional Title")
 * Host start sending data to client with PSH FLAG and ACK FLAG 
 * Client received the packet and send back a packet of ACK, the updated window size (Not yet computed by client), the new seq num and the new ack num
 * Host send back an ACK saying that it has receive packet succesfully and also proceed the data so the window size is still the same.
 3. Connection termination phase (full close)
-![](../main/attachments/Clipboard_2022-08-21-17-59-05.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-17-59-05.png?raw=true "Optional Title")
 4. Connection termination phase (half close)
-![](../main/attachments/Clipboard_2022-08-21-18-00-15.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-18-00-15.png?raw=true "Optional Title")
 
 ##### Sessions & State
-![](../main/attachments/Clipboard_2022-08-21-18-25-00.png)
+![Stacks](../main/attachments/Clipboard_2022-08-21-18-25-00.png?raw=true "Optional Title")
 Stateless firewall: Does not understand the state of a connection (Network ACL)
 * Would need 2 rule for it to work.
     * Outbound rule (host transfering data to client)
@@ -375,14 +390,14 @@ NAT Device is use to do the following:
 * Translate IPv4 address to Public
 * Type of NAT:
     * Static NAT - 1 private to 1 (fixed) public address (IGW)
-    ![](../main/attachments/Clipboard_2022-08-21-18-36-01.png)
+    ![Stacks](../main/attachments/Clipboard_2022-08-21-18-36-01.png?raw=true "Optional Title")
     * Dynamic NAT - 1 private to 1st available public adress
-    ![](../main/attachments/Clipboard_2022-08-23-22-47-38.png)
+    ![Stacks](../main/attachments/Clipboard_2022-08-23-22-47-38.png?raw=true "Optional Title")
     * Port Address Translation (PAT) - many private to 1 public (NATGW)
-    ![](../main/attachments/Clipboard_2022-08-23-22-49-50.png)
+    ![Stacks](../main/attachments/Clipboard_2022-08-23-22-49-50.png?raw=true "Optional Title")
 * IPv4 only since IPv6 has no shortage
 #### EXTRA - Subnetting
-![](../main/attachments/Clipboard_2022-08-23-22-58-45.png)
+![Stacks](../main/attachments/Clipboard_2022-08-23-22-58-45.png?raw=true "Optional Title")
 * Dividing IP into smaller chucks
 * Total 4,294,967,296 IPv4 Address
 * Class A IP: Start 0.0.0.0 - End 127.255.255.255
@@ -400,12 +415,12 @@ NAT Device is use to do the following:
 ##### IP Subnetting
 * The larger the prefix the samller the network
 
-![](../main/attachments/Clipboard_2022-08-23-23-10-46.png)
-![](../main/attachments/Clipboard_2022-08-23-23-11-24.png)
+![Stacks](../main/attachments/Clipboard_2022-08-23-23-10-46.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-08-23-23-11-24.png?raw=true "Optional Title")
 
 ##### SSL and TLS
 
-![](../main/attachments/Clipboard_2022-08-23-23-22-34.png)
+![Stacks](../main/attachments/Clipboard_2022-08-23-23-22-34.png?raw=true "Optional Title")
 
 ##### Hash Functions & Hashing
 * Data + Hash function = hash
@@ -416,7 +431,7 @@ NAT Device is use to do the following:
 * Check by downloading the data and if the hash match then data is unaltered
 
 ##### Digital Signatures
-![](../main/attachments/Clipboard_2022-08-23-23-43-03.png)
+![Stacks](../main/attachments/Clipboard_2022-08-23-23-43-03.png?raw=true "Optional Title")
 * Verifies <span style="color:purple">INTEGRITY(WHAT)</span> & <span style="color:orange">AUTHENTICITY(WHO)</span> 
 * <span style="color:purple">HASH</span> of the data is taken, original data remains unaltered <span style="color:purple">(INTEGRITY)</span>
 * <span style="color:orange">Digital sign</span> the <span style="color:purple">HASH</span> (using private key). <span style="color:orange">Authenticates</span> the hash.
@@ -977,7 +992,7 @@ Identity Policies are attached to AWS Identities which are:
 * IAM groups
 * IAM roles 
  
-![](../main/attachments/Clipboard_2022-08-25-22-46-55.png)
+![Stacks](../main/attachments/Clipboard_2022-08-25-22-46-55.png?raw=true "Optional Title")
 These are **a set of security statements** that ALLOW or DENY access to AWS resources.
 
 When an identity attempts to access AWS resources, that identity needs to prove who it is to AWS, using a process known as **Authentication**.
@@ -997,13 +1012,13 @@ Once authenticated, that identity is known as an **authenticated identity**
 - Resource: similar to action except for format `arn:aws:s3:::catgifs`
 
 #### 1.4.1.2. Priority Level
-![](../main/attachments/Clipboard_2022-08-25-22-58-25.png)
+![Stacks](../main/attachments/Clipboard_2022-08-25-22-58-25.png?raw=true "Optional Title")
 - Explicit Deny: Denies access to a particular resource cannot be overruled.
 - Explicit Allow: Allows access so long there is not an explicit deny.
 - Default Deny (Implicit): IAM identities start off with no resource access.
 
 #### 1.4.1.3. Inline Policies and Managed Policies
-![](../main/attachments/Clipboard_2022-08-25-23-05-13.png)
+![Stacks](../main/attachments/Clipboard_2022-08-25-23-05-13.png?raw=true "Optional Title")
 - Take in all statement and evaluates all at the same time
 - Inline Policy: grants access and assigned on each accounts individually. (Use for exceptions)
 - Managed Policy (best practice): one policy is applied to all users at once.
@@ -1020,7 +1035,7 @@ Identity used for anything requiring **long-term** AWS access
 
 If you can name a thing to use the AWS account, this is an IAM user.
 
-![](../main/attachments/Clipboard_2022-08-25-23-19-43.png)
+![Stacks](../main/attachments/Clipboard_2022-08-25-23-19-43.png?raw=true "Optional Title")
 
 When a **principal** wants to **request** to perform an action, it will **authenticate** against an identity within IAM. An IAM user is an
 identity which can be used in this way.
@@ -1075,7 +1090,7 @@ These two ARNs do not overlap
 * They have no credentials of their own. 
 * Used solely for management of IAM users.
 
-![](../main/attachments/Clipboard_2022-08-28-18-29-03.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-18-29-03.png?raw=true "Optional Title")
 Groups bring two benefits
 
 1. Effective administrative style management of users based on the team
@@ -1117,7 +1132,7 @@ IAM Users can have inline or managed policies which control which permissions th
 
 Permission policy: Policies which grant, allow or deny, permissions based on their associations.
 
-![](../main/attachments/Clipboard_2022-08-28-19-23-13.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-19-23-13.png?raw=true "Optional Title")
 IAM Roles have two types of policies can be attached.
 
 - Trust Policy: Specifies which identities are allowed to assume the role.
@@ -1133,7 +1148,7 @@ Secure Token Service (sts:AssumeRole) this is what generates the temporary secur
 
 ### 1.4.5. When to use IAM Roles
 
-![](../main/attachments/Clipboard_2022-08-28-19-36-53.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-19-36-53.png?raw=true "Optional Title")
 Lambda Execution Role.
 For a given lambda function, you cannot determine the number of principals which suggested a Role might be the ideal identity to use.
 
@@ -1145,7 +1160,7 @@ When this is run, it uses the sts:AssumeRole to generate keys to CloudWatch and 
 It is better when possible to use an IAM Role versus attaching a policy.
 
 #### 1.4.5.1. Emergency or out of the usual situations
-![](../main/attachments/Clipboard_2022-08-28-19-40-36.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-19-40-36.png?raw=true "Optional Title")
 Break Glass Situation - There is a key for something the team does not normally have access to. When you break the glass, you must have a reason
 to do.
 A role can have an Emergency Role which will allow further access if its really needed.
@@ -1161,7 +1176,7 @@ by one of the active directories.
 **ID Federation** allowing an external service the ability to assume a role.
 
 #### 1.4.5.3. Making an app with 1,000,000 users
-![](../main/attachments/Clipboard_2022-08-28-19-46-51.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-19-46-51.png?raw=true "Optional Title")
 **Web Identity Federation** uses IAM roles to allow broader access.
 These allow you to use an existing web identity such as google, facebook, or twitter to grant access to the app.
 We can trust these web identities and allow those identities to assume an IAM role to access web resources such as DynamoDB.
@@ -1169,7 +1184,7 @@ No AWS Credentials are stored on the application.
 Can scale quickly and beyond.
 
 #### 1.4.5.4. Cross Account Access
-![](../main/attachments/Clipboard_2022-08-28-19-50-25.png)
+![Stacks](../main/attachments/Clipboard_2022-08-28-19-50-25.png?raw=true "Optional Title")
 You can use a role in the partner account and use that to upload objects to AWS resources.
 
 Service-linked roles 
@@ -1193,18 +1208,18 @@ When standard AWS accounts become part of the org, they become **member accounts
 Organizations can only have one **master accounts** and zero or more **member accounts**
 
 #### 1.4.6.1. Organization Root
-![](../main/attachments/Clipboard_2022-08-29-23-47-42.png)
+![Stacks](../main/attachments/Clipboard_2022-08-29-23-47-42.png?raw=true "Optional Title")
 This is a container that can hold AWS member accounts or the master account.
 It could also contain **organizational units** which can contain other units or member accounts.
 
 #### 1.4.6.2. Consolidated billing
-![](../main/attachments/Clipboard_2022-08-29-23-51-30.png)
+![Stacks](../main/attachments/Clipboard_2022-08-29-23-51-30.png?raw=true "Optional Title")
 The individual billing for the member accounts is removed and they pass their billing to the master account.
 Inside an AWS organization, you get a single monthly bill for the master account which covers all the billing for each users.
 Can offer a discount with consolidation of reservations and volume discounts
 
 #### 1.4.6.3. Create new accounts in an org
-![](../main/attachments/Clipboard_2022-08-29-23-57-25.png)
+![Stacks](../main/attachments/Clipboard_2022-08-29-23-57-25.png?raw=true "Optional Title")
 Adding accounts in an organization is easy with only an email needed.
 
 No need for IAM Users within every single AWS account.
@@ -1222,7 +1237,7 @@ Allows you to switch between accounts from the command line
 Can be used to restrict what member accounts in an org can do.
 
 JSON policy document that can be attached:
-![](../main/attachments/Clipboard_2022-08-30-23-41-24.png)
+![Stacks](../main/attachments/Clipboard_2022-08-30-23-41-24.png?raw=true "Optional Title")
 - To the org as a whole by attaching to the root container.
 - A specific Organizational Unit
 - A specific member only.
@@ -1302,7 +1317,7 @@ Security is provided with IAM roles or Service roles.
 Can generate metrics based on logs **metric filter**
 
 #### 1.4.8.1. Architecture of CloudWatch Logs
-![](../main/attachments/Clipboard_2022-09-01-12-15-58.png)
+![Stacks](../main/attachments/Clipboard_2022-09-01-12-15-58.png?raw=true "Optional Title")
 * It is a regional service `us-east-1`
 * Need logging sources such as external APIs or databases. 
 * This sends information as **log events**. 
@@ -1370,7 +1385,7 @@ CloudTrail products can create an organizational trail. This allows a single man
 
 <https://aws.amazon.com/cloudtrail/pricing/>
 
-#### 1.4.10. AWS Control Tower
+### 1.4.10. AWS Control Tower
 
 * Quick & Easy setup of multi-account environment
 * Orchestrates other AWS services to provide this functionality
@@ -1382,7 +1397,7 @@ CloudTrail products can create an organizational trail. This allows a single man
 * Dashboard - single page oversight of the entire environment
 
 #### 1.4.10.1. Control Tower Structure
-![](../main/attachments/Clipboard_2022-09-02-17-30-31.png)
+![Stacks](../main/attachments/Clipboard_2022-09-02-17-30-31.png?raw=true "Optional Title")
 * Management account contain:
   * Control Tower
   * SSO (IAM Identity Center)
@@ -1428,14 +1443,605 @@ CloudTrail products can create an organizational trail. This allows a single man
 * Can be fully integrated with a businesses Software Development Life Cycle (SDLC)
 ---
 
+## 1.5. Simple-Storage-Service-(S3)
 
+### 1.5.1. S3 Security
 
+- **S3 is private by default!** 
+- The only identity which has any initial access to an S3 bucket is the account root user of the account which owns that bucket.
 
+#### 1.5.1.1. S3 Bucket Policy
 
+![Stacks](../main/attachments/Clipboard_2022-09-09-16-23-28.png?raw=true "Optional Title")
+This is a **resource policy**
+- controls who has access to that resource
+- can allow or deny access from different accounts
+- can allow or deny anonymous principals
+  - this is explicitly declared in the bucket policy itself.
 
+Different from an **identity policy**
 
+- controls what that identity can access
+- can only be attached to identities in your own account
+  - no way of giving an identity in another account access to a bucket.
 
+Each bucket can only have one policy, but it can have multiple statements.
 
+#### 1.5.1.2. ACLs Access control lists (Legacy)
 
+A way to apply a subresource to objects and buckets.
+These are legacy and AWS does not recommend their use.
+They are inflexible and allow simple permissions.
 
+#### 1.5.1.3. Block Plublic Acess
 
+- Public access: read only to any objects defined in a resource policy on a bucket.
+- Block public access: apply no matter what the bucket policy say but just the public access  
+- Act as a final fail safe
+
+#### 1.5.1.4. S3 Exam PowerUp
+
+When to use Identity Policy or Bucket Policy:
+
+Identity
+
+- Controlling high mix of different resources.
+  - Not every service supports resource policies.
+- Want to manage permissions all in one place, use IAM.
+- Must have access to all accounts accessing the information.
+
+Bucket
+
+- Managing permissions on a specific product.
+- If you need anonymous or cross account access.
+
+ACLs: NEVER - unless you must.
+
+### 1.5.2. S3 Static Hosting
+
+Normal access is via AWS APIs.
+This allows access via HTTP using a web browser.
+
+When you enable static website hosting you need two HTML files:
+
+- index document
+  - default page returned from a website
+  - entry point for most websites
+- error document
+  - similar to index, but only when something goes wrong
+
+Static website hosting creates a **website endpoint**.
+
+This is influenced by the bucket name and region it is in. This cannot be changed.
+
+You can use a custom domain for a bucket, but then the bucket name matters.
+The name of the bucket must match the domain.
+
+#### 1.5.2.1. Offloading
+
+Instead of using EC2 to host an entire website, the compute service can generate a HTML file which points to the resources hosted on a static bucket. This ensures the media is retrieved from S3 and not EC2.
+
+#### 1.5.2.2. Out-of-band pages
+
+This may be an error page to display maintenance if the server goes offline.
+We could then change our DNS and move customers to a backup website on S3.
+
+#### 1.5.2.3. S3 Pricing
+
+- Cost to store data, per GB / month fee
+  - Prorated for less than a GB or month.
+- Data transfer fee
+  - Data in is always free
+  - Data out is a per GB charge
+- Each operation has a cost per 1000 operations.
+  - Can add up for static website hosting with many requests.
+
+### 1.5.3. Object Versioning and MFA Delete
+![Stacks](../main/attachments/Clipboard_2022-09-10-16-32-16.png?raw=true "Optional Title")
+Without Versioning:
+
+- Each object is identified solely by the object key, it's name.
+- If you modify an object, the original of that object is replaced.
+- The attribute, **ID of object**, is set to **null**.
+
+Versioning
+
+- This is off by default.
+- Once it is turned on, it cannot be turned off.
+- Versioning can be suspended and enabled again.
+- This allows for multiple versions of objects within a bucket.
+- Objects which would modify objects **generate a new version** instead.
+
+The latest or current version is always returned when an object version is not requested.
+
+When an object is deleted, AWS puts a **delete marker** on the object and hides all previous versions. You could delete this marker to enable the item.
+
+To delete an object, you must delete all the versions of that object using their version marker.
+
+#### 1.5.3.1. MFA Delete
+
+Enabled within version configuration in a bucket.
+This means MFA is required to change bucket versioning state.
+MFA is required to delete versions of an object.
+
+In order to change a version state or delete a particular version of an object, you need to provide the serial number of your MFA token as well as the code it generates. These are concatenated and passed with any API calls.
+
+### 1.5.4. S3 Performance Optimization
+
+Single PUT Upload
+
+- Objects uploaded to S3 are sent as a single stream by default.
+- If the stream fails, the upload fails and requires a restart of the transfer.
+- Single PUT upload up to 5GB
+
+Multipart Upload
+
+- Data is broken up into smaller parts.
+- The minimum data size is 100 MB.
+- Upload can be split into maximum of 10,000 parts.
+  - Each part can range between 5MB and 5GB.
+  - Last leftover part can be smaller than 5MB as needed.
+- Parts can fail in isolation and restart in isolation.
+- The risk of uploading large amounts of data is reduced.
+- Improves transfer rate to be the speed of all parts.
+
+S3 Accelerated Transfer
+![Stacks](../main/attachments/Clipboard_2022-09-11-16-10-03.png?raw=true "Optional Title")
+- Off by default.
+- Uses the network of AWS edge locations to speed up transfer.
+- Bucket name cannot contain periods.
+- Name must be DNS compatible.
+- Benefits improve the larger the location and distance.
+  - The worse the start (distance), the better the performance benefits.
+
+### 1.5.5. Key Management Service (KMS)
+
+- Regional service
+  - Every region is isolated when using KMS.
+- Public service
+  - Occupies the AWS public zone and can be connected to from anywhere.
+- Create, store, and manage keys.
+  - Can handle both symmetric and asymmetric keys.
+- KMS can perform cryptographic operations itself.
+- Keys never leave KMS.
+- Keys use **Federal Information Processing Standard (FIPS) 140-2 (L2)** security standard.
+  - Some features are compliant with Level 3.
+  - All features are compliant with Level 2.
+
+#### 1.5.5.1. KMS Keys
+![Stacks](../main/attachments/Clipboard_2022-09-11-16-41-32.png?raw=true "Optional Title")
+- Used to be called Customer Master Keys but now called KMS Keys
+- Managed by KMS and used within cryptographic operations.
+- AWS services, applications, and the user can all use them.
+- It is logical and contains
+  - Key ID: unique identifier for the key
+  - Creation Date
+  - Key Policy: a type of resource policy
+  - Description
+  - State of the Key: active or not
+- Think of them as a container for the actual physical master keys.
+- These are all backed by **physical** key material.
+- You can generate or import the key material.
+- KMS can be used for up to **4KB of data**.
+
+#### 1.5.5.2. Data Encryption Key (DEK)
+- Generated by KMS using the KMS Key and `GenerateDataKey` operation.
+- Used to encrypt data larger than 4KB in size.
+- Linked to a specific KMS Key so KMS can tell that a specific DEK was
+generated with a specific KMS Key.
+
+KMS does not store the DEK, once provided to a user or service, it is discarded. KMS doesn't actually perform the encryption or decryption of data using the DEK or anything past generating them.
+
+When the DEK is generated, KMS provides two version.
+
+- Plaintext Version - This can be used immediately.
+- Ciphertext Version - Encrypted version of the DEK.
+  - This is encrypted by the KMS Key that generated it.
+  - In the future it can be decrypted by KMS using the KMS Key assuming
+  you have the permissions.
+
+Architecture
+![Stacks](../main/attachments/Clipboard_2022-09-11-16-47-12.png?raw=true "Optional Title")
+1. DEK is generated right before something is encrypted.
+2. The data is encrypted with the plaintext version of the DEK.
+3. Discard the plaintext data version of the DEK.
+4. The encrypted DEK is stored next to the ciphertext generated earlier.
+
+#### 1.5.5.3. KMS Key Concepts
+
+- KMS keys are isolated to a region.
+  - Never leave the region or KMS.
+  - Cannot extract a KMS Key.
+- AWS managed KMSs
+  - Created automatically by AWS when using a service such as S3 which uses KMS for encryption.
+- Customer managed KMS Key
+  - Created explicitly by the customer.
+  - Much more more configurable, for example the key policy can be edited.
+  - Can allow other AWS accounts access to KMS Key
+
+All KMS Keys support key rotation.
+
+- AWS automatically rotates the keys every year
+- Customer managed keys rotate every year is optional but enabled by default.
+
+KMS Keys itself contains:
+
+- Current backing key, physical material used to encrypt and decrypt
+- Previous backing keys created from rotation
+
+KMS can create an alias which is a shortcut to a particular KMS Keys.
+Aliases are also per region. 
+You can create a `MyApp1` alias in all regions but they would be separate aliases, and in each region it would be pointing potentially at a different KMS Keys. 
+Neither aliases or keys are global by default.
+
+#### 1.5.5.4. Key Policy and Security(resource policy)
+![Stacks](../main/attachments/Clipboard_2022-09-11-17-05-48.png?raw=true "Optional Title")
+- Every Key has one (Key policies).
+- Customer managed CMKs can adjust the policy.
+- Unlike other policies, KMS has to be explicitly told that keys trust the AWS account that they're in.
+- The trust isn't automatic so be careful when adjusting key policies.
+- You always need a key policy in place so the key trusts the account and so that the account can manage it by applying IAM permission policies to IAM users in that account.
+- In order for IAM to work, IAM is trusted by the account, and the account needs to be trusted by the key.
+- It sets up this chain of trust from the key to the account to IAM and then to an IAM user, if they're granted any identity permissions.
+
+### 1.5.6. KMS Key Demo
+
+Linux/macOS commands
+
+```bash
+aws kms encrypt \
+    --key-id alias/catrobot \
+    --plaintext fileb://battleplans.txt \
+    --output text \
+    --query CiphertextBlob \
+    --profile iamadmin-general | base64 \
+    --decode > not_battleplans.enc
+```
+
+```bash
+aws kms decrypt \
+    --ciphertext-blob fileb://not_battleplans.enc \
+    --output text \
+    --profile iamadmin-general \
+    --query Plaintext | base64 --decode > decryptedplans.txt
+```
+
+### 1.5.7. Object Encryption
+
+Buckets aren't encrypted, **objects are**.
+Multiple objects in a bucket can use a different encryption methods.
+
+S3 is capable of supporting two main methods of encryption.
+Both types are encryption at rest. Data sent from a user to S3 is automatically encrypted in transit outside of these methods.
+![Stacks](../main/attachments/Clipboard_2022-09-12-22-26-51.png?raw=true "Optional Title")
+Client-Side encryption
+
+- Objects being encrypted by the client before they leave.
+- Data being sent the whole time it is sent as cypher text.
+- AWS has no way to see into the data.
+- The encryption burden is on the customer and not AWS.
+
+Server-Side encryption
+
+- Data is encrypted in transit using HTTPS
+- Data inside the tunnel is still in its original unencrypted form.
+- Data reaches S3 server in plain text form.
+- After S3 sees the data, it is then encrypted.
+- AWS will handle some or all of these processes.
+
+#### 1.5.7.1. SSE-C (Server-side encryption with customer provided keys)
+![Stacks](../main/attachments/Clipboard_2022-09-12-22-32-07.png?raw=true "Optional Title")
+- Customer is responsible for the keys themselves.
+- S3 services manages the actual encryption and decryption
+  - Offloads CPU requirements for encryption.
+- Customer still needs to generate and manage the key.
+- S3 will see the unencrypted object throughout this process.
+
+SSE-C Encryption Steps
+
+1. When placing an object in S3, you provide encryption key and plaintext object
+2. Once the key and object arrive, it is encrypted.
+3. A hash of the key is taken and attached to the object.
+The hash can identify if the specific key was used to encrypt the object.
+4. The key is then discarded after the hash is taken.
+5. The encrypted and one-way hash are stored persistently on storage.
+
+To decrypt the object, you must tell S3 which object to decrypt and provide it with the key used to encrypt it. If the key that you supply is correct, compare by the proper hash, S3 will decrypt the object, discard the key, and return the plaintext version of the object.
+
+#### 1.5.7.2. SSE-S3 AES256 (Server-side encryption w/ Amazon S3 managed keys)
+![Stacks](../main/attachments/Clipboard_2022-09-12-23-00-48.png?raw=true "Optional Title")
+AWS handles both the encryption and decryption process as well as the key generation and management. This provides very little control over how the keys are used, but has little admin overhead.
+
+SSE-S3 Encryption Steps
+
+1. When putting data into S3, only need to provide plaintext.
+2. S3 generates fully managed and rotated **master key** automatically.
+3. Object generates a key specific for each object that is uploaded.
+4. The master key is used to encrypt the specific object key, and the
+unencrypted version of that key is discarded.
+5. The encrypted file and encrypted key are stored side by side in S3.
+
+Three Problems with this method:
+
+- Not good for regulatory environment where keys and access must be controlled.
+- No way to control key material rotation.
+- No role separation. A full S3 admin can decrypt data and open objects.
+
+#### 1.5.8.3. SSE-KMS
+(Server-side encryption w/ customer master keys stored in AWS KMS)
+![Stacks](../main/attachments/Clipboard_2022-09-12-23-04-21.png?raw=true "Optional Title")
+Much like SSE-S3, where AWS handles both the keys and encryption process.
+KMS handles the master key and not S3. The first time an object is uploaded, S3 works with KMS to create an AWS managed KMS key. This is the default key which gets used in the future.
+
+Every time an object is uploaded, S3 uses a dedicated key to encrypt that object and that key is a data encryption key which KMS generates using the KMS key.
+The KMS key does not need to be managed by AWS and can be a customer managed KMS key.
+
+SSE-KMS Encryption Steps
+
+1. S3 is provided a plaintext version of the data encryption key as well as an encrypted version.
+2. The data is encrypted with the plaintext key and the key discarded.
+3. The encrypted key is stored alongside the encrypted object.
+
+When uploading an object, you can create and use a customer managed key (KMS key). This allows the user to control the permissions and the usage of the key material. In regulated industries, this is reason enough to use SSE-KMS. You can also add logging and see any calls against this key from CloudTrail.
+
+The best benefit is the role separation. To decrypt any object, you need access to the CMK that was used to generate the unique key that encrypted them. The CMK is used to decrypt the data encryption key for that object. That decrypted data encryption key is used to decrypt the object itself. If you don't have access to KMS, you don't have access to the object.
+
+### 1.5.8. S3 Object Storage Classes
+
+Picking a storage class can be done while uploading a specific object.
+The default is S3 standard. Once an object is uploaded to a specific class, it can be easily changed as long as some conditions are met.
+
+Objects in S3 are stored in a specific region.
+
+#### 1.5.8.1. S3 Standard
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-18-47.png?raw=true "Optional Title")
+- Default AWS storage class that's used in S3, should be user default as well.
+- S3 Standard is region resilient, and can tolerate the failure of an AZ.
+- Objects are replicated to at least 3+ AZs when they are uploaded.
+- 99.999999999% durability
+- 99.99% availability
+- Offers low latency and high throughput.
+- No minimums, delays, or penalties.
+- Billing is storage fee, data transfer fee, and request based charge.
+- Good for frequent access and import/non replaceable data
+
+All of the other storage classes trade some of these compromises for another.
+
+#### 1.5.8.2. S3 Standard-IA (infrequent access)
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-30-11.png?raw=true "Optional Title")
+- Designed for less frequent rapid access when it is needed.
+- Cheaper rate to store data you will rarely need, but if you do need it, you need it quickly.
+- ~50% cheaper than S3 standard.
+- Retrieval fee for every GB of data retrieved from this class.
+- 99.9% availability, slightly lower than standard S3.
+- Minimum 128KB charge for each object.
+  - Cost benefits might be negated for smaller objects.
+- 30 days minimum duration charge per object.
+
+Designed for data that isn't accessed often (once a month), long term storage, backups, disaster recovery files. The requirement for data to be safe is most important.
+
+#### 1.5.8.3. One Zone-IA
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-33-37.png?raw=true "Optional Title")
+- Designed for data that is accessed less frequently but needed quickly.
+- 80% of the base cost of Standard-IA.
+- Same minimum size and duration fee as Standard-IA
+- Data is only stored in a single AZ, no 3+ AZ replication.
+- 99.5% availability, lower than Standard-IA
+
+Great choice for secondary copies of primary data or backup copies.
+
+If data is easily creatable from a primary data set, this would be a great place to store the output from another data set.
+
+#### 1.5.8.4. S3 Glacier Instant
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-41-36.png?raw=true "Optional Title")
+- Similar to S3 IA
+- Cheaper storage higher retrieval fee
+- Still instant retrieval
+- min 90 days duration charge (can be stored for less but billed for 90 days)
+- Still 99.999999999% durability/ 3-AZ
+
+Use for long live data with infrequent access (once a quarter)
+
+#### 1.5.8.5. S3 Glacier Flexible
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-51-29.png?raw=true "Optional Title")
+- 1/6 of the base cost of S3 standard
+- No immediate access to objects, retrieval in minutes or hours.
+- Not publicly accessible, need retrieval process for data access.
+- Make a request to access objects then after a duration, you get access.
+  - Retrieval time anywhere from 1 min - 12 hrs
+- Secure, durable, and low cost storage for archival data.
+- 99999999999% durability
+- 99.99% availability
+- 3+ AZ replication
+- 40KB minimum object capacity charge
+- 90 days minimum storage duration charge.
+
+Retrieval methods:
+- Expedited: 1 - 5 minutes, but is the most expensive
+- Standard: 3 - 5 hours to restore.
+- Bulk: 5 - 12 hours. Has the lowest cost and is good for a large set of data.
+- First byte latency = minutes of hours
+
+Use for Archival data where frequent/realtime access isn't needed (yearly access)
+
+#### 1.5.8.6. S3 Glacier Deep Archive
+![Stacks](../main/attachments/Clipboard_2022-09-13-22-55-53.png?raw=true "Optional Title")
+- Designed for long term backups and.
+- 4.3% of the base cost of S3 standard
+- 180 days minimum storage duration charge.
+- Standard retrieval within 12 hours, bulk retrieval in 48 hours.
+- Cannot use to make data public or download normally.
+
+#### 1.5.8.7. S3 Intelligent-Tiering
+![Stacks](../main/attachments/Clipboard_2022-09-13-23-04-41.png?raw=true "Optional Title")
+- Combination of all of S3 type
+- Uses automation to remove overhead of moving objects.
+- Additional fee of $0.0025 per 1,000 objects automation cost.
+- If an object is not accessed for 30 days, it will move into Standard-IA.
+- Move to Glacier instant after 90 days.
+- After 90 days/180 days moved to Glacier flex/deep archive
+  - Application need to support these 2 tiers
+  - Retrieving need specific API call
+- If object is access then will be move back to requent access
+
+This is good for long lived data with charging or unknown access pattern.
+
+### 1.5.9. S3 Lifecycle Configuration
+
+A lifecycle configuration is a set of **rules** that consists of **actions** on a **Bucket** or **groups of obejects**.
+
+#### 1.5.9.1. Transition Actions
+![Stacks](../main/attachments/Clipboard_2022-09-13-23-37-14.png?raw=true "Optional Title")
+Change the storage class over time such as:
+
+- Move an object from S3 Standard to IA after min 30 days (1 single rule)
+- Move an object from Standard-IA to glacier class need to wait another 30 days if it is from the same rule. 
+  - Can by pass the 30 days if using 2 rules.
+- Smaller objects can cost more due to the minumum size of each class.
+- Objects must flow downwards, they can't flow in the reverse direction.
+
+#### 1.5.9.2. Expiration Actions
+
+Once an object has been uploaded and changed, you can purge older versions
+after 90 days to keep costs down.
+
+### 1.5.10. S3 Replication
+
+There are two types of S3 replication available.
+
+- Cross-Region Replication (CRR)
+  - Allows the replication of objects from a source bucket to a destination bucket in **different** AWS regions.
+- Same-Region Replication (SRR)
+  - Allows the replication of objects from a source bucket to a destination bucket in the **same** AWS region.
+
+Architecture for both is similar, only difference is if both buckets are in the same account or different accounts.
+
+![Stacks](../main/attachments/Clipboard_2022-09-15-22-36-24.png?raw=true "Optional Title")
+1. Same account
+- The replication configuration is applied to the source bucket and configures S3 to replicate from this source bucket to a destination bucket. 
+- It also configures the IAM role to use for the replication process. The role is configured to allow the S3 service to assume it based on its trust policy. 
+- The role's permission policy allows it to read objects on the source bucket and replicate them to the destination bucket.
+2. Different account
+- When different accounts are used, the role is not by default trusted by the destination account. 
+- If configuring between accounts, you must add a bucket policy on the destination account to allow the IAM role from the source account access to the bucket.
+
+#### 1.5.10.1. S3 Replication Options
+
+- Which objects are replicated.
+  - Default is all source objects, but can select a smaller subset of objects (by prefix or tag).
+- Select which storage class the destination bucket will use.
+  - Default is the same type of storage, but this can be changed.
+- Define the ownership of the objects.
+  - The default is they will be owned by the same account as the source bucket.
+  - If the buckets are in different accounts, the objects in the destination could be owned by the source account and not allowed access.
+- Replication Time Control (RTC)
+  - Adds a guaranteed level of SLA within 15 minutes for extra cost.
+  - This is useful for buckets that must be in sync the whole time.
+
+#### 1.5.10.2. Important Replication Tips
+
+- Replication is not retroactive.
+  - If you enable replication on a bucket that already has objects, the old
+  objects will not be replicated.
+- Both buckets must have versioning enabled.
+- It is a one way replication process only.
+- Replication by default can handle objects that are unencrypted or SSE-S3.
+  - With configuration it can handle SSE-KMS, but KMS requires more
+configuration to work.
+  - It cannot replicate objects with SSE-C because AWS does not have the keys necessary.
+- Source bucket owner needs permissions to objects. If you grant cross-account
+access to a bucket. It is possible the source bucket account will not own
+some of those objects.
+- Will not replicate system events, glacier, or glacier deep archive.
+- No deletes are replicated.
+
+#### 1.5.10.3. Why use replication
+
+SRR - Log Aggregation
+SRR - Sync production and test accounts
+SRR - Resilience with strict sovereignty requirements
+CRR - Global resilience improvements
+CRR - Latency reduction
+
+### 1.5.11. S3 Presigned URL
+![Stacks](../main/attachments/Clipboard_2022-09-18-20-49-42.png?raw=true "Optional Title")
+A way to give another person or application access to a object inside an S3 bucket using your credentials in a safe way.
+
+IAM admin can make a request to S3 to generate a presigned URL by providing:
+
+- security credentials
+- bucket name
+- object key
+- expiry date and time
+- indicate how the object or bucket will be accessed
+
+S3 will create a presigned URL and return it. This URL will have encoded insideit the details that IAM admin provided. It will be configured to expire at a certain date and time as requested by the IAM admin user.
+
+#### 1.5.11.1. S3 Presigned URL Exam PowerUp
+
+- You can create a presigned URL for an object you have do not have access to.
+The object will not allow access because your user does not have access.
+- When using the URL the permission that you have access to, match the identity that generated it at the moment the item is being accessed.
+- If you get an access deny it means the ID never had access, or lost it.
+- Don't generate presigned URLs with an IAM role.
+  - The role will likely expire before the URL does.
+
+### 1.5.12. S3 Select and Glacier Select
+![Stacks](../main/attachments/Clipboard_2022-09-18-21-34-27.png?raw=true "Optional Title")
+This provides a ways to retrieve parts of objects and not the entire object.
+
+If you retrieve a 5TB object, it takes time and consumes 5TB of data.
+
+Filtering at the client side doesn't reduce this cost.
+
+S3 and Glacier select lets you use SQL-like statements to select part of the object which is returned in a filtered way.
+The filtering happens at the S3 service itself saving time and data.
+
+### 1.5.13. S3 Event Notifications
+![Stacks](../main/attachments/Clipboard_2022-09-18-21-43-15.png?raw=true "Optional Title")
+- Notification generated when events occur in a bucket.
+- Can be delivered to SNS, SQS and Lambda Functions.
+- Object Created
+- Object Delete
+- Object Restore
+- Replication
+
+S3 Event is old and can only interact with alimited number of AWS services.
+EventBridge is a **better alternative**.
+
+### 1.5.14. S3 Access Logs
+![Stacks](../main/attachments/Clipboard_2022-09-18-21-50-42.png?raw=true "Optional Title")
+- Use to know which type of access are occurring to the source bucket.
+- Target bucket is where the log will go.
+- Use Console UI or CLI/API.
+- Managed by s3 log delivery group .
+  - Best efforts process (can take a few hours)
+  - Need access to bucket
+- Useful for security and access audit.
+- Need to manage life cycle (delete,movement...)
+
+### 1.5.15. S3 Object Lock
+![Stacks](../main/attachments/Clipboard_2022-09-18-22-10-21.png?raw=true "Optional Title")
+- Enable for **new** bucket(Sup Req for Exist Bucket)
+- Enable versioning as well. - Individual versions are locked.
+- Can't suppend object lock or version if enabled.
+- Write-once-Read-many(WORM) - No Delete, No Overwrite.
+- 1 - Retention Period
+- 2 - Legal Hold
+- Both, One or the other, or none
+- A bucket can have default Object Lock Setting
+
+#### 1.5.15.1. S3 Object Lock Retention
+- Specify Days & Years - A Retention Period
+- ***COMPLICANCE MODE*** - Can't be adjusted, deleted, overwritten. (Not even the root user until retention expires)
+- ***GOVERNANCE MODE*** - special permissions can be granted allowing lock settings to be adjusted.
+- s3:BypassGovernanceRetention
+- x-amzz-bypass-governance-retention:true(console default)
+
+#### 1.5.15.2. S3 Object Lock Legal Hold
+- Set on an object version - ON or OFF
+- No retention
+- **NO Deletes** or **Changes** until removed
+- s3:PutObjectLegalHold is required to add or remove feature.
+- Prevent accidental deletion of critical object versions
+---
