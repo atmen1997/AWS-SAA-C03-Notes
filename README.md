@@ -99,7 +99,7 @@ that make up the total service. There are parts that **you** manage as well
 as portions the **vendor** manages. The portions the vendor manages and you
 are charged for is the **unit of consumption**
 
-![](../attachments/Clipboard_2022-08-20-22-35-47.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-08-20-22-35-47.png?raw=true "Optional Title")
 
 1. On-Premises: 
     * The individual manages all components from data to facilities.
@@ -2168,10 +2168,10 @@ VPC Consideration
 - VPC structure with tiers (App/web/database) and resilience (availability) zones 
 
 Example: Global Architecture 
-![](../attachments/Clipboard_2022-09-21-23-21-14.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-21-23-21-14.png?raw=true "Optional Title")
 - Avoid existing ip range
 - Ask the business for know which ip range to avoid
-![](../attachments/Clipboard_2022-09-21-23-24-41.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-21-23-24-41.png?raw=true "Optional Title")
 
 More Considerations
 - VPC min /28 network (16 IP)
@@ -2191,7 +2191,7 @@ An example using 4 AWS accounts.
 - Total of 40 ranges, 10 ranges for each account.
 
 #### 1.6.2.1. How to size VPC
-![](../attachments/Clipboard_2022-09-21-23-42-28.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-21-23-42-28.png?raw=true "Optional Title")
 A subnet is located in one availability zone.
 Try to split each subnet into tiers (web, application, db, spare).
 Since each Region has at least 3 AZ's, it is a good practice to start splitting the network into 4 different AZs.
@@ -2199,7 +2199,7 @@ This allows for at least one subnet in each AZ, and one spare.
 Taking a /16 subnet and splitting it 16 ways will make each a /20.
 
 ### 1.6.3. Custom VPC
-![](../attachments/Clipboard_2022-09-23-19-40-45.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-23-19-40-45.png?raw=true "Optional Title")
 - Regional Isolated and Resilient Service.
   - Operates from all AZs in that region
 - Allows isolated networks inside AWS.
@@ -2304,7 +2304,7 @@ This is how computing devices receive IP addresses automatically. There is one o
 - A subnet can only have one route table associated at a time, but a route table can be associated by many subnets.
 
 #### 1.6.5.1. Route Tables
-![](../attachments/Clipboard_2022-09-27-18-53-52.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-27-18-53-52.png?raw=true "Optional Title")
 When traffic leaves the subnet that this route table is associated with, the VPC router reviews the IP packets looking for the destination address.
 The traffic will try to match the route against the route table. 
 If there are more than one routes found as a match, the prefix is used as a priority.
@@ -2325,7 +2325,7 @@ A managed service that allows gateway traffic between the VPC and the internet o
 - Runs from within the AWS public zone.
 
 #### 1.6.5.3. Using IGW
-![](../attachments/Clipboard_2022-09-27-19-08-08.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-27-19-08-08.png?raw=true "Optional Title")
 In this example, an EC2 instance has:
 
 - Private IP address of 10.16.16.20
@@ -2341,7 +2341,7 @@ The packet arrives at the internet gateway.
 
 The IGW sees this is from the EC2 instance and analyzes the source IP address.
 It changes the packet source IP address from the linux EC2 server and puts on the public IP address that is routed from that instance. The IGW then pushes that packet on the public internet.
-![](../attachments/Clipboard_2022-09-27-19-09-13.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-27-19-09-13.png?raw=true "Optional Title")
 On the return, the inverse happens. As far as it is concerned, it does not know about the private address and instead uses the instance's public IP address.
 
 If the instance uses an IPv6 address, that public address is good to go. The IGW does not translate the packet and only pushes it to a gateway.
@@ -2356,11 +2356,11 @@ Used as a management point or as an entry point for a private only VPC.
 This is an inbound management point. Can be configured to only allow specific IP addresses or to authenticate with SSH. It can also integrate with your on premise identification service.
 
 ### 1.6.6. Network Access Control List (NACL)
-![](../attachments/Clipboard_2022-09-27-20-42-32.png?raw=true "Optional Title")
-![](../attachments/Clipboard_2022-09-27-20-43-07.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-27-20-42-32.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-27-20-43-07.png?raw=true "Optional Title")
 Network Access Control Lists (NACLs) are a type of security filter
 (like firewalls) which can filter traffic as it enters or leaves a subnet.
-![](../attachments/Clipboard_2022-09-29-21-30-30.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-29-21-30-30.png?raw=true "Optional Title")
 All VPCs have a default NACL, this is associated with all subnets of that VPC by default.
 NACLs are used when traffic enters or leaves a subnet.
 Since they are attached to a subnet and not a resource, they only filter data as it crosses in or out.
@@ -2395,7 +2395,7 @@ This cannot be edited and is defaulted on each rule list.
 If no other rules match the traffic being evaluated, it will be denied.
 
 #### 1.6.6.1. NACLs example below
-![](../attachments/Clipboard_2022-09-29-21-39-22.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-29-21-39-22.png?raw=true "Optional Title")
 - Bob wants to view a blog using https(tcp/443)
 - We need a NACL rule to allow TCP on port 443.
 - All IP communication has two parts
@@ -2446,11 +2446,11 @@ NACLs are processed in order starting at the lowest rule number until it gets to
 - SGs have a hidden implicit **Deny**.
   - Anything that is not allowed in the rule set for the SG is implicitly denied.
 #### 1.6.7.1. SG Logical References
-![](../attachments/Clipboard_2022-09-29-22-05-54.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-29-22-05-54.png?raw=true "Optional Title")
 - Source can reference SG.
 - SG references applies to anything which has the SG attached.
 #### 1.6.7.2. SG Self References
-![](../attachments/Clipboard_2022-09-29-22-09-03.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-09-29-22-09-03.png?raw=true "Optional Title")
 - IP changes are automatically handled
 - Within a SG a "SG source" is the same as "anything with the SG attached". 
 - Using a "self reference" means "anything with this SG attached"
@@ -2462,7 +2462,7 @@ NACLs are processed in order starting at the lowest rule number until it gets to
 - NACLs are associated with a subnet and only filter traffic that crosses that boundary. If the resource is in the same subnet, it will not do anything.
 
 ### 1.6.8. Network Address Translation (NAT) Gateway
-![](../attachments/Clipboard_2022-10-05-21-51-36.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-10-05-21-51-36.png?raw=true "Optional Title")
 Set of different processes that can address IP packets by changing their source or destination addresses.
 
 **IP masquerading**, hides CIDR block behind one IP. This allows many IPv4 addresses to use one public IP for **outgoing** internet access.
@@ -2482,7 +2482,7 @@ with a Route Table in each AZ with NATGW as target.
 - Managed service, scales up to 45 Gbps. Can deploy multiple NATGW to increase
 bandwidth.
 - AWS charges on usage per hour and data volume processed.
-![](../attachments/Clipboard_2022-10-05-22-02-02.png?raw=true "Optional Title")
+![Stacks](../main/attachments/Clipboard_2022-10-05-22-02-02.png?raw=true "Optional Title")
 - NAT instance is limited by capabilities of the instance it is running on and that instance is also general purpose, so won't offer the same level of custom design performance as NAT Gateway.
 - You can connect to NAT instance just like any other instance, you can use them as Bastion host or can use them for port forwarding.
 - NAT instance is single instance running in single AZ it'll fail if EC2 hardware fails, network fails, storage fails or AZ itself fails.
